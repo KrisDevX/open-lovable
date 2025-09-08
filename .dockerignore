@@ -1,0 +1,66 @@
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Next.js
+.next/
+out/
+
+# Production
+build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local env files
+.env*.local
+.env
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# E2B template builds
+*.tar.gz
+e2b-template-*
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+repomix-output.txt
+bun.lockb
+
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+docs/
+
+# Test files
+test/
+*.test.js
+*.test.ts
+*.test.tsx
+
+# Docker
+Dockerfile
+.dockerignore

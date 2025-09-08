@@ -5,7 +5,6 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateObject } from 'ai';
 import { z } from 'zod';
-import type { FileManifest } from '@/types/file-manifest';
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
@@ -19,6 +18,10 @@ const anthropic = createAnthropic({
 const openai = createOpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   baseURL: process.env.OPENAI_BASE_URL,
+});
+
+const google = createGoogleGenerativeAI({
+  apiKey: process.env.GOOGLE_API_KEY,
 });
 
 // Schema for the AI's search plan - not file selection!
@@ -74,7 +77,6 @@ export async function POST(request: NextRequest) {
     const fileSummary = validFiles
       .map(([path, info]: [string, any]) => {
         const componentName = info.componentInfo?.name || path.split('/').pop();
-        const hasImports = info.imports?.length > 0;
         const childComponents = info.componentInfo?.childComponents?.join(', ') || 'none';
         return `- ${path} (${componentName}, renders: ${childComponents})`;
       })
@@ -104,7 +106,7 @@ export async function POST(request: NextRequest) {
         aiModel = openai(model.replace('openai/', ''));
       }
     } else if (model.startsWith('google/')) {
-      aiModel = createGoogleGenerativeAI(model.replace('google/', ''));
+      aiModel = google(model.replace('google/', ''));
     } else {
       // Default to groq if model format is unclear
       aiModel = groq(model);
